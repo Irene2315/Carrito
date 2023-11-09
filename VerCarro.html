@@ -113,8 +113,11 @@
             articulosCesta = articulosCesta.filter(articulo => articulo.id != idArticulo);
 
             if (articulosCesta.length == 0) {
+                //si eliminamos el ultimo elemento volveremos a la página origen
                 window.location = "Carrito.html";
             } else {
+                //si no es el último elemento reconstruiremos la tabla de nuevo 
+
                 construirTabla();
             }
         }
