@@ -34,7 +34,7 @@
 </head>
 <body>
 
-
+<div id="contenedor"></div>
 <script>
    
     //Creamos la cesta
@@ -51,21 +51,22 @@
 
     iTotal=0;
 
-
+    let contenedor=document.getElementById("contenedor");
+    let sCadena=''
     //Crear tabla
-    sCadena="<table ><tr><td>Articulo</td><td>Imagen</td><td>Precio</td></tr>";
+    sCadena=`<table ><tr><td>Articulo</td><td>Imagen</td><td>Precio</td></tr>`
     for (i=0;i<aArticulos.length;i++){
-        sCadena+="<tr>";
-        sCadena+="<td>"+aArticulos[i].nombre+"</td>";
-        sCadena+="<td><img src="+aArticulos[i].src()+" class='MiImg'></td>";
-        sCadena+="<td>"+aArticulos[i].precio+"</td>";
-        sCadena+="<td> <input type='button' id='button' value='Comprar' onclick='Comprar(\""+ aArticulos[i].id +"\")'> </td>";
-        sCadena+="</tr>";
+        sCadena+=`<tr>`
+        sCadena+=`<td>${aArticulos[i].nombre}</td>`
+        sCadena+=`<td><img src="${aArticulos[i].src()}" class='MiImg'></td>`
+        sCadena+=`<td>${aArticulos[i].precio}</td>`
+        sCadena+=`<td> <input type='button' id='button' value='Comprar' onclick='Comprar("${aArticulos[i].id}")'> </td>`
+        sCadena+=`</tr>`
 
 
         iTotal+=parseInt(aCompra[aArticulos[i].id]);
     }
-    sCadena+="</table>";
+    sCadena+=`</table>`
 
 
     if (iTotal==0){//si no se ha comprado nada imagen carrito vacio
@@ -76,8 +77,7 @@
     sCadena+="<input type='button' id='btnVaciar' value='VaciarCompra' onclick='Vaciar()'>";
 
 
-    document.write(sCadena);
-
+    contenedor.innerHTML=sCadena
 
     // Función para movernos a la página de comprar un artículo
     function Comprar(sArticulo){

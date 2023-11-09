@@ -15,12 +15,6 @@
             border-collapse: collapse;
             text-align: center;
             margin-left: 20%;
-
-
-        }
-
-        table {
-            position: absolute;
         }
 
         table,
@@ -28,113 +22,109 @@
         td {
             border: 2px solid #666;
             padding: 10px;
-
-        }
-
-
-        #btnVaciar {
-            position: absolute;
-            top: 40px;
-            left: 150px;
         }
 
         #atras_id {
             width: 90px;
             height: 100px;
-
-            position: absolute
+            position: absolute;
+            top:0px;
         }
     </style>
     <script src="Carrito.js"></script>
 </head>
 
 <body>
-
+    <div id="contenedor"></div>
+    <a href='Carrito.html'><img src='Mercado/atras.png' id='atras_id'></a>
     <script>
-        //recoge el array del storage
+        // Recoge el array del storage
         let aCompra = JSON.parse(sessionStorage.Compra);
         console.log(aCompra)
 
         let cestaCompra = {};
 
         for (let producto in aCompra) {
-            /*if  (aCompra.hasOwnProperty(articulo)){
-             cesta += (`${articulo}:${aCompra[articulo]}`);
-            }*/
             if (aCompra[producto] != 0) {
                 cestaCompra[producto] = aCompra[producto]
-
-
             }
         }
         console.log(cestaCompra)
 
-
-        //Hacemos lo mismo con aArticulos que este ará referencia a los productos que mostraremos en nuestro html
-
+        // Hacemos lo mismo con aArticulos que este hará referencia a los productos que mostraremos en nuestro html
         let articulosCesta = []
-
-
-        let indice=0;
+        let indice = 0;
 
         for (i = 0; i < aArticulos.length; i++) {
+            let articulo = aArticulos[i];
+            let idArticulo = articulo.id
 
-            let articulo=aArticulos[i];
-
-            let idArticulo=articulo.id
-            
-            if (cestaCompra.hasOwnProperty(idArticulo) ) {
+            if (cestaCompra.hasOwnProperty(idArticulo)) {
                 articulosCesta[indice] = articulo
                 indice++;
-                
             }
         }
 
         console.log(articulosCesta)
 
-    //Crear tabla
-    sCadena="<table ><tr><td>Articulo</td><td>Imagen</td><td>Cantidad</td><td>Precio</td><td>Total</td></tr>";
-    for (i=0;i<articulosCesta.length;i++){
-        
-        let idArticulo = articulosCesta[i].id
+        let precioCesta = 0;
 
-        sCadena+="<tr>";
-        sCadena+="<td>"+articulosCesta[i].nombre+"</td>";
-        sCadena+="<td><img src="+articulosCesta[i].src()+" class='MiImg'></td>";
-        sCadena+="<td>"+cestaCompra[idArticulo]+"</td>";
-        sCadena+="<td>"+articulosCesta[i].precio+"</td>";
-        sCadena+="<td>"+CalculoTotal(cestaCompra[idArticulo],articulosCesta[i].precio)+"</td>";
-        /*sCadena+="<td>"
-        sCadena += `<input type='button' id='button_Eliminar' value='Eliminar' onclick='Eliminar("${idArticulo}", ${cestaCompra[idArticulo]})'>`;
-        sCadena+="</td>" */
-        sCadena += "<td><input type='button' id='button_Eliminar' value='Eliminar' onclick='Eliminar(\"" + idArticulo + "\", " + cestaCompra[idArticulo] + ")'> </td>";
-        
-        sCadena+="</tr>";
+        // Llamar a la función para construir la tabla inicialmente
+        construirTabla();
 
-    }
-    sCadena+="</table>";
+        // Función para construir la tabla
+        function construirTabla() {
+            let contenedor=document.getElementById("contenedor");
+            let sCadena=''
+            sCadena = `<table ><tr><td>Articulo</td><td>Imagen</td><td>Cantidad</td><td>Precio</td><td>Total</td></tr>`
+            for (let i = 0; i < articulosCesta.length; i++) {
+                let idArticulo = articulosCesta[i].id
 
-    document.write(sCadena);
-    
+                sCadena += `<tr>`
+                sCadena += `<td>${articulosCesta[i].nombre} </td>`
+                sCadena += `<td><img src="${articulosCesta[i].src()}" class='MiImg'></td>`
+                sCadena += `<td>${cestaCompra[idArticulo]}</td>`;
+                sCadena += `<td>${articulosCesta[i].precio}</td>`;
+                sCadena += `<td>${CalculoTotal(cestaCompra[idArticulo], articulosCesta[i].precio)}</td>`;
+                sCadena += `<td><input type='button' id='button_Eliminar' value='Eliminar' onclick='Eliminar("${idArticulo}", ${cestaCompra[idArticulo]})'></td>`;
+                sCadena += `</tr>`
+            }
+            sCadena += `<tr><td colspan='6'><input type='button' id='button_Pagar' value='Anadir'  onclick='Pagar()' ></td></tr>`
+            sCadena += `</table>`
 
+            // Obtener el elemento del cuerpo del documento y actualizar su contenido
+            contenedor.innerHTML = sCadena
+        }
 
-    function CalculoTotal(cantidad,precio){
-        total=cantidad*precio
+        function CalculoTotal(cantidad, precio) {
+            total = cantidad * precio
+            precioCesta = total + precioCesta
+            return total + "€"
+        }
 
-        return total+"€"
-    }
+        function Eliminar(idArticulo, cantidad) {
+            cantidad = 0
+            aCompra[idArticulo] = cantidad
+            sessionStorage.Compra = JSON.stringify(aCompra)
 
-    function Eliminar(idArticulo,cantidad){
-        console.log(idArticulo)
-        console.log(cantidad)
-        cantidad=0
-        aCompra[idArticulo]=cantidad
-        sessionStorage.Compra=JSON.stringify(aCompra)
+            delete cestaCompra[idArticulo];
 
-        window.location="VerCarro.html";        
-    }
-    
+            // Filtra los articulos cuyo id no coincide con el que vamos a eliminar
+            articulosCesta = articulosCesta.filter(articulo => articulo.id != idArticulo);
+
+            if (articulosCesta.length == 0) {
+                window.location = "Carrito.html";
+            } else {
+                construirTabla();
+            }
+        }
+
+        function Pagar() {
+            alert("El precio total es: " + precioCesta + " €");
+        }
+
     </script>
+
 </body>
 
 </html>
