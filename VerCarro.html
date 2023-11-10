@@ -53,15 +53,14 @@
 
         // Hacemos lo mismo con aArticulos que este hará referencia a los productos que mostraremos en nuestro html
         let articulosCesta = []
-        let indice = 0;
+        
 
         for (i = 0; i < aArticulos.length; i++) {
             let articulo = aArticulos[i];
             let idArticulo = articulo.id
 
             if (cestaCompra.hasOwnProperty(idArticulo)) {
-                articulosCesta[indice] = articulo
-                indice++;
+                articulosCesta.push(articulo)
             }
         }
 
