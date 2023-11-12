@@ -40,21 +40,18 @@
     <script>
         // Recoge el array del storage
         let aCompra = JSON.parse(sessionStorage.Compra);
-        console.log(aCompra)
-
+        //console.log(aCompra)
         let cestaCompra = {};
-
         for (let producto in aCompra) {
             if (aCompra[producto] != 0) {
                 cestaCompra[producto] = aCompra[producto]
             }
         }
-        console.log(cestaCompra)
+        //console.log(cestaCompra)
 
         // Hacemos lo mismo con aArticulos que este hará referencia a los productos que mostraremos en nuestro html
-        let articulosCesta = []
         
-
+        let articulosCesta = []
         for (i = 0; i < aArticulos.length; i++) {
             let articulo = aArticulos[i];
             let idArticulo = articulo.id
@@ -63,8 +60,7 @@
                 articulosCesta.push(articulo)
             }
         }
-
-        console.log(articulosCesta)
+       // console.log(articulosCesta)
 
         let precioCesta = 0;
 

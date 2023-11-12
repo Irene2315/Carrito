@@ -46,7 +46,6 @@
 
 <div id="contenedor"></div>
 <script>
-
 //Obtenemos el id
 let idComprando=sessionStorage.IdComprando
 console.log(idComprando)
@@ -55,16 +54,6 @@ console.log(idComprando)
 aCompra=JSON.parse(sessionStorage.Compra);//volvemos a tener el objeto de vuelta
 console.log(aCompra)
 
-/*
-//objeto actual storage
-let objetoStorage=0
-for (let articulo in aCompra) {
-  if (aCompra.hasOwnProperty(idComprando)) {
-    cesta[idComprando] = aCompra[idComprando] 
-  }
-}
-console.log(objetoStorage)*/
-
 //De la lista de todos los articulos el articulo actual para ver en el html
         let articuloActual=0;
 
@@ -72,41 +61,27 @@ console.log(objetoStorage)*/
             if(idComprando==aArticulos[i].id){
                 articuloActual=aArticulos[i]
             }
-        
         }
-
-        
-        console.log(articuloActual)
+        //console.log(articuloActual)
 
     let contenedor =document.getElementById("contenedor")
     sCadena=''
-    //Crear tabla
+    //Creamos la tabla que se va ha mostrar
     sCadena="<table ><tr><td>Articulo</td><td>Imagen</td><td>Cantidad</td><td>Precio</td></tr>";
-    
+
         sCadena+="<tr>";
         sCadena+="<td>"+articuloActual.nombre+"</td>";
         sCadena+="<td><img src="+articuloActual.src()+" class='MiImg'></td>";
         sCadena+="<td><input type='text' id='id_cantidadAnadir' name='cantidadAñadir'></td>";
         sCadena+="<td>"+articuloActual.precio+"</td>";
-        
-        
-        sCadena += "<tr><td colspan='4'><input type='button' id='button_Anadir' value='Anadir'  onclick='Anadir()' ></td></tr>";
-        
-        sCadena+="</tr>";
-        
+        sCadena += "<tr><td colspan='4'><input type='button' id='button_Anadir' value='Anadir'  onclick='Anadir()' ></td></tr>";  
 
-       // iTotal+=parseInt(aCompra[aArticulos[i].id]);
+        sCadena+="</tr>";
 
     sCadena+="</table>";
 
+    contenedor.innerHTML=sCadena
 
-    document.write(sCadena);
-
-
-
-
-    
-   
     function Anadir(){
         
         //cantidad de id compra
