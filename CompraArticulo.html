@@ -54,6 +54,16 @@ console.log(idComprando)
 aCompra=JSON.parse(sessionStorage.Compra);//volvemos a tener el objeto de vuelta
 console.log(aCompra)
 
+/*
+//objeto actual storage
+let objetoStorage=0
+for (let articulo in aCompra) {
+  if (aCompra.hasOwnProperty(idComprando)) {
+    objetoStorage=(`${idComprando}:${aCompra[idComprando]}`); 
+  }
+}
+console.log(objetoStorage)*/
+
 //De la lista de todos los articulos el articulo actual para ver en el html
         let articuloActual=0;
 
