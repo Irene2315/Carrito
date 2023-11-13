@@ -42,14 +42,14 @@
     <div id="contenedor"></div>
     <script>
         //Creamos la cesta
-        if (sessionStorage.Compra == undefined) {
+        if (localStorage.Compra == undefined) {
             aCompra = {};
             for (i = 0; i < aArticulos.length; i++) {
                 aCompra[aArticulos[i].id] = 0;
             }
-            sessionStorage.Compra = JSON.stringify(aCompra);//convierte a cadena el array de objetos
+            localStorage.Compra = JSON.stringify(aCompra);//convierte a cadena el array de objetos
         } else {
-            aCompra = JSON.parse(sessionStorage.Compra);//volvemos a tener el objeto de vuelta
+            aCompra = JSON.parse(localStorage.Compra);//volvemos a tener el objeto de vuelta
         }
 
         iTotal = 0;
@@ -81,7 +81,7 @@
 
         // Función para movernos a la página de comprar un artículo
         function Comprar(sArticulo) {
-            sessionStorage.IdComprando = sArticulo;
+            localStorage.IdComprando = sArticulo;
             window.location = "CompraArticulo.html";
         }
         // Función para movernos a la página de ver el carro
@@ -102,7 +102,7 @@
         function Vaciar() {
             for (i = 0; i < aArticulos.length; i++) {
                 aCompra[aArticulos[i].id] = 0;
-                sessionStorage.Compra = JSON.stringify(aCompra);
+                localStorage.Compra = JSON.stringify(aCompra);
                 location.reload();
             }
         }
