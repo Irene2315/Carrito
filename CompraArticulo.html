@@ -47,11 +47,11 @@
 <div id="contenedor"></div>
 <script>
 //Obtenemos el id
-let idComprando=sessionStorage.IdComprando
+let idComprando=localStorage.IdComprando
 console.log(idComprando)
 
 //la lista de objeto y cantidad para el storage
-aCompra=JSON.parse(sessionStorage.Compra);//volvemos a tener el objeto de vuelta
+aCompra=JSON.parse(localStorage.Compra);//volvemos a tener el objeto de vuelta
 console.log(aCompra)
 
 /*
@@ -103,10 +103,10 @@ console.log(objetoStorage)*/
 
         aCompra[idComprando] = cantidad; 
         
-        sessionStorage.Compra = JSON.stringify(aCompra);
+        localStorage.Compra = JSON.stringify(aCompra);
         
         
-        console.log(sessionStorage.Compra)
+        console.log(localStorage.Compra)
 
         window.location.assign("Carrito.html")
 

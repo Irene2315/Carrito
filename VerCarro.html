@@ -39,7 +39,7 @@
     <a href='Carrito.html'><img src='Mercado/atras.png' id='atras_id'></a>
     <script>
         // Recoge el array del storage
-        let aCompra = JSON.parse(sessionStorage.Compra);
+        let aCompra = JSON.parse(localStorage.Compra);
         //console.log(aCompra)
         let cestaCompra = {};
         for (let producto in aCompra) {
@@ -100,7 +100,7 @@
         function Eliminar(idArticulo, cantidad) {
             cantidad = 0
             aCompra[idArticulo] = cantidad
-            sessionStorage.Compra = JSON.stringify(aCompra)
+            localStorage.Compra = JSON.stringify(aCompra)
 
             delete cestaCompra[idArticulo];
 
